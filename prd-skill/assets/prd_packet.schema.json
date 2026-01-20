@@ -18,6 +18,8 @@
         "owners": { "type": "array", "items": { "type": "string" } },
         "date_created": { "type": "string" },
         "last_updated": { "type": "string" },
+        "iteration": { "type": "integer", "minimum": 1 },
+        "change_summary": { "type": "string" }
         "confidence_overall": { "type": "number", "minimum": 0, "maximum": 1 }
       }
     },
