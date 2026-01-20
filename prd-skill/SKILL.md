@@ -16,9 +16,33 @@ Given an existing PRD (often messy, incomplete, or unstructured), produce:
 2) A **PRD Packet (JSON)** that conforms to `assets/prd_packet.schema.json`
 3) A **User Story Mapper Handoff** embedded in the PRD Packet (and optionally as a Markdown section)
 
-This skill must work in two modes:
-- **Flow mode:** expects upstream artifacts may exist (e.g., prior PRD outputs), uses them if present.
-- **Standalone mode:** if upstream artifacts are missing, derive what’s needed from the PRD and clearly mark TBDs + generate questions.
+## Position in the Flow (Iterations)
+This skill is the **entry-point** for the workflow: it produces the canonical PRD artifacts that downstream skills consume.
+
+However, it may be invoked multiple times across iterations (either by the user or as part of an iterative refinement loop). Each run must:
+- read any existing PRD artifacts (prior normalized PRD, prior PRD packet JSON, prior Q&A),
+- reconcile changes (what is new/removed/modified),
+- preserve stable IDs when possible (FR/NFR),
+- update the handoff accordingly.
+
+## Invocation Cases
+- First pass: only raw PRD text exists.
+- Refinement pass: raw PRD + previous PRD packet(s) exist.
+- Repair pass: downstream skill reports missing/conflicting info; PRD skill re-runs to patch the PRD packet and re-issue handoff.
+
+## Core Behavior: Ask Clarifying Questions When Uncertain
+This skill must actively identify uncertainty and ask the user targeted questions whenever:
+- a requirement cannot be made testable without guessing,
+- a policy/behavior choice exists (e.g., retries vs fail-fast, partial results),
+- the PRD contains ambiguity or conflicting statements,
+- a field is missing that materially affects downstream design.
+
+Questions must be:
+- specific (not generic “tell me more”),
+- grouped (max ~10 per iteration),
+- prioritized by impact on downstream mapping and implementation.
+
+The skill must still produce usable outputs in the same run by marking TBDs, **but it should explicitly ask the questions** instead of silently guessing.
 
 ## When to Use
 Use when the user provides (or references) a PRD and asks to:
@@ -31,6 +55,8 @@ Use when the user provides (or references) a PRD and asks to:
 - `raw_prd_text` (required): pasted text extracted from PDF/GDoc/MD or a summarized PRD.
 - `optional_context` (optional): product constraints, team conventions, target platforms, deadlines, etc.
 - Optional upstream artifacts (if available): prior normalized PRD, architecture notes, existing user stories.
+- prior_artifacts (optional): previous normalized PRD markdown, previous PRD packet JSON, prior Q&A answers, downstream feedback.
+
 
 ## Outputs
 ### A) Normalized PRD Markdown
@@ -52,7 +78,10 @@ A Markdown document with these top-level headings (always output, even if some s
 13. User Story Mapper Handoff (summary)
 
 ### B) PRD Packet JSON
-Emit JSON that validates against `assets/prd_packet.schema.json`.
+Emit JSON that validates against `assets/prd_packet.schema.json`, including:
+- `tbd.missing_fields`
+- `tbd.assumptions_made`
+- `tbd.questions` (always present; empty list allowed)
 
 ## Procedure
 1. **Ingest & Triage**
@@ -70,6 +99,7 @@ Emit JSON that validates against `assets/prd_packet.schema.json`.
      - NFR-001… for non-functional
    - Add acceptance criteria when possible.
    - If acceptance criteria cannot be derived, mark as TBD and add a precise question.
+   - If acceptance criteria cannot be derived without guessing, mark as TBD AND generate a clarifying question.
 
 4. **Quality Checks**
    - Requirements should be: unambiguous, testable/verifiable where possible.
@@ -78,6 +108,9 @@ Emit JSON that validates against `assets/prd_packet.schema.json`.
      - missing actors/roles
      - missing success metrics
      - missing error-handling expectations
+   - For any ambiguous term (“fast”, “secure”, “easy”), do BOTH:
+     - flag it as ambiguous
+     - ask a clarifying question to make it measurable/testable
 
 5. **Generate User Story Mapper Handoff**
    - Provide:
