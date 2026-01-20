@@ -8,7 +8,7 @@ metadata:
   outputs: ["normalized_prd_markdown", "prd_packet_json"]
 ---
 
-# PRD Scheme Skill (PRD Refiner + Handoff Generator)
+# PRD Skill (PRD Refiner + Handoff Generator)
 
 ## Purpose
 Given an existing PRD (often messy, incomplete, or unstructured), produce:
