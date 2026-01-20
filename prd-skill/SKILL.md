@@ -1,5 +1,5 @@
 ---
-name: prd-scheme
+name: prd-skill
 description: Normalize and refine an existing PRD (PDF/GDoc/MD text) into a structured PRD packet and a clean handoff for the User Story Mapper.
 metadata:
   version: "1.0"
