@@ -51,6 +51,14 @@ Use when the user provides (or references) a PRD and asks to:
 - prepare a handoff for user stories
 - convert a PRD into a structured schema / markdown
 
+## Non-Goals
+This skill does **not**:
+- define architecture, system design, or technology choices
+- create UI/UX designs or wireframes
+- write implementation-ready technical specs beyond PRD-level requirements
+- prioritize a delivery roadmap beyond rough MVP vs later slice hints
+- replace the downstream User Story Mapper, Architecture, or Tech Spec skills
+
 ## Inputs
 - `raw_prd_text` (required): pasted text extracted from PDF/GDoc/MD or a summarized PRD.
 - `optional_context` (optional): product constraints, team conventions, target platforms, deadlines, etc.
@@ -83,6 +91,14 @@ Emit JSON that validates against `assets/prd_packet.schema.json`, including:
 - `tbd.assumptions_made`
 - `tbd.questions` (always present; empty list allowed)
 
+### C) Handoff Contract for User Story Mapper
+Provide a contract that downstream User Story Mapper should consume:
+- `personas`: list of actors with roles and goals
+- `epics`: grouped by journey/goal
+- `candidate_user_stories`: each with `story`, linked `fr_ids`/`nfr_ids`, and acceptance criteria if available
+- `release_slices`: MVP vs later (if inferable)
+- `open_questions`: unanswered items that could block story mapping
+
 ## Procedure
 1. **Ingest & Triage**
    - Identify: product, users, goals, scope, key flows, requirements, constraints.
@@ -91,6 +107,7 @@ Emit JSON that validates against `assets/prd_packet.schema.json`, including:
 2. **Normalize Structure**
    - Rebuild the PRD into the standard Markdown section set.
    - Keep phrasing crisp and testable where possible.
+   - Preserve any **explicit lists** provided by the user (e.g., mandatory sources, required URLs, named vendors, or fixed constraints) **verbatim**. Do not paraphrase, re-label, or compress these items into broader category names.
 
 3. **Requirements Extraction**
    - Convert vague statements into explicit requirements.
@@ -143,4 +160,3 @@ Emit JSON that validates against `assets/prd_packet.schema.json`, including:
 
 ## Example Prompt That Should Trigger This Skill
 “Here’s my PRD from Google Docs. Please refine it and generate the best handoff for the user story mapper.”
-
