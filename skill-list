@@ -1,0 +1,37 @@
+Product definition
+- PRD Skill
+- User Story Mapper (How things actually look - flows and such
+
+High level design
+- Architecture Skill
+
+Designers
+- Frontend Logic & State designer → Technical Specification Writer 
+- Backend + API designer → Technical Specification Writer 
+- Database Schema Designer → Technical Specification Writer 
+
+Agentic
+- Orchestration design skill (what agents, sequencing and parallelism, retries and escalation) → Technical Specification Writer 
+- Agentic memory, context and RAG Pipeline Architect → Technical Specification Writer 
+- Agents Tool Definition Generator (MCP Creator) → Technical Specification Writer 
+- Context & Prompt Engineering design Skill → Technical Specification Writer 
+- Security designer → Technical Specification Writer
+- Design synchronizer (Can invoke designers again if finds conflicts)
+
+Planning
+- Task Planner Skill (Parallel / Sequential, multiple instances)
+
+Implementing
+- Backend implementation skill (Logic, API framework and implementation, schemas and data validation, security
+- Agentic implementation skill
+- Complete backend implementation synchronizer skill
+- Frontend Coding Skill (Implements UI and client logic, Integrates with backend APIs
+
+After coding
+- Evaluation & Feedback Skill (Reviews agent outputs, Detects failures, Triggers retries or human review)
+- Security Review Skill (Advises on auth, secrets, permissions)
+- Testing Skill (UT, Validates correctness against PRD)
+- Linting & Code Quality Skill (Flake8, Enforces style)
+- Documentation Skill (In the code base, Developer/User docs, Keeps sync with implementation)
+- CI/CD Skill
+- DevOps Skill (Hosting strategy, Plans environments (dev / staging / prod)
