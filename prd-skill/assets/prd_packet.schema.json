@@ -19,8 +19,13 @@
         "date_created": { "type": "string" },
         "last_updated": { "type": "string" },
         "iteration": { "type": "integer", "minimum": 1 },
-        "change_summary": { "type": "string" }
-        "confidence_overall": { "type": "number", "minimum": 0, "maximum": 1 }
+        "change_summary": { "type": "string" },
+        "confidence_overall": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Overall confidence score for the PRD packet normalization (0-1)."
+        }
       }
     },
 
@@ -193,6 +198,21 @@
               "acceptance_criteria": { "type": "array", "items": { "type": "string" } }
             }
           }
+        },
+        "release_slices": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Release slicing for story mapping (MVP vs later); used by the user-story skill to keep slices aligned with PRD intent.",
+          "properties": {
+            "mvp": { "type": "array", "items": { "type": "string" } },
+            "later": { "type": "array", "items": { "type": "string" } },
+            "notes": { "type": "string" }
+          }
+        },
+        "open_questions": {
+          "type": "array",
+          "description": "PRD-level questions that block or shape story mapping; echoed into story-map ambiguities when unresolved.",
+          "items": { "type": "string" }
         },
         "linkage": {
           "type": "object",

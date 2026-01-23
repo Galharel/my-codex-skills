@@ -90,14 +90,22 @@ Emit JSON that validates against `assets/prd_packet.schema.json`, including:
 - `tbd.missing_fields`
 - `tbd.assumptions_made`
 - `tbd.questions` (always present; empty list allowed)
+- `handoff_user_story_mapper` (the User Story Mapper contract embedded inside the PRD packet)
 
 ### C) Handoff Contract for User Story Mapper
 Provide a contract that downstream User Story Mapper should consume:
-- `personas`: list of actors with roles and goals
-- `epics`: grouped by journey/goal
-- `candidate_user_stories`: each with `story`, linked `fr_ids`/`nfr_ids`, and acceptance criteria if available
-- `release_slices`: MVP vs later (if inferable)
+- `actors`: list of actors (personas/roles) with goals captured in the normalized PRD
+- `epics`: grouped by journey/goal with stable IDs
+- `stories`: candidate stories with `as_a`, `i_want`, `so_that`, priority, and acceptance criteria if available
+- `linkage.story_to_requirements`: story → FR/NFR IDs for traceability
+- `release_slices`: MVP vs later (if inferable, otherwise TBD)
 - `open_questions`: unanswered items that could block story mapping
+This contract must be embedded at `prd_packet_json.handoff_user_story_mapper` and may optionally be summarized in the Markdown output.
+
+### Artifact Locations & Naming
+When writing files to a repo, ensure they live under a `docs/` directory. If it does not exist, create it.
+- `docs/prd.normalized.md` (Normalized PRD Markdown)
+- `docs/prd.packet.json` (PRD Packet JSON with `handoff_user_story_mapper`)
 
 ## Procedure
 1. **Ingest & Triage**
@@ -107,6 +115,7 @@ Provide a contract that downstream User Story Mapper should consume:
 2. **Normalize Structure**
    - Rebuild the PRD into the standard Markdown section set.
    - Keep phrasing crisp and testable where possible.
+   - Prefer concise bullet lists over long paragraphs to reduce verbosity and make downstream story mapping deterministic; only include narrative where it adds necessary context.
    - Preserve any **explicit lists** provided by the user (e.g., mandatory sources, required URLs, named vendors, or fixed constraints) **verbatim**. Do not paraphrase, re-label, or compress these items into broader category names.
 
 3. **Requirements Extraction**
@@ -131,9 +140,9 @@ Provide a contract that downstream User Story Mapper should consume:
 
 5. **Generate User Story Mapper Handoff**
    - Provide:
-     - personas/actors
+     - actors (personas/roles)
      - epics (grouped by journey/goal)
-     - candidate user stories (as a starting point)
+     - candidate stories (as a starting point)
      - acceptance criteria link-back to FR/NFR IDs
      - release slices (MVP vs later), if inferable
 

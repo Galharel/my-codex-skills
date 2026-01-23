@@ -15,17 +15,23 @@ Stay between PRD refinement and architecture/technical design. Do **not** decide
 Expect **every artifact produced by the PRD skill** and use them as authoritative sources. Explain each input and how it is used:
 - `normalized_prd_markdown` (required): produced by the PRD skill. Use it to read narrative context, journeys, and any explicit lists or constraints that must be preserved verbatim.
 - `prd_packet_json` (required): produced by the PRD skill (valid against the PRD packet schema). Use it as the structured source of FR/NFR IDs, acceptance criteria, and embedded handoff data.
-- `prd_handoff_contract` (required): produced by the PRD skill (either embedded in the packet or emitted separately). Use it as the authoritative list of personas, epics, candidate stories, release slices, and open questions.
+- `prd_handoff_contract` (required): produced by the PRD skill and located at `prd_packet_json.handoff_user_story_mapper`. Use it as the authoritative list of actors, epics, candidate stories, release slices, and open questions. This contract is embedded inside the PRD packet (not a separate file) unless explicitly emitted by the PRD skill as a standalone section.
 - `optional_context` (optional): provided by the user or system. Use it to resolve ambiguities, add constraints, or clarify flow ordering.
 - `prior_story_map` (optional): prior story map artifact. Use it to keep story IDs stable across iterations.
 
 If any required artifact is missing or incomplete, **ask the user targeted questions immediately** and proceed with best-effort placeholders labeled as TBD (see Failure Modes).
 
+### Artifact Locations & Naming
+When writing files to a repo, ensure they live under a `docs/` directory. If it does not exist, create it.
+- `docs/story-map.json` (Story Map JSON)
+- `docs/story-map.summary.md` (Story Map Summary)
+- Update `docs/prd.packet.json` when story mapping changes require PRD updates.
+
 ## Outputs
 ### A) Story Map JSON (machine-consumable)
 Emit a deterministic JSON (or YAML) artifact with stable IDs and traceability:
 - `meta`: `skill_name`, `version`, `source_contract_id`, `generated_at`
-- `personas[]`: copied from PRD handoff (verbatim where explicit lists are provided)
+- `personas[]`: copied from PRD artifacts (prefer `handoff_user_story_mapper.actors`, otherwise `normalized_prd.users.personas`)
 - `epics[]`: copied or mapped from PRD handoff
 - `user_flows[]`: flow-oriented steps (entry point → actions → system responses) per persona/epic
 - `story_map`: `persona → activities → steps → stories`
@@ -48,9 +54,10 @@ Provide a concise summary:
 1. **Ingest PRD Artifacts**
    - Load `normalized_prd_markdown`, `prd_packet_json`, and `prd_handoff_contract`.
    - If any required artifact is missing or incomplete, **ask the user targeted questions immediately** and continue with placeholders labeled TBD.
+   - Confirm the handoff contract is sourced from `prd_packet_json.handoff_user_story_mapper`; if missing, treat it as a blocking gap and request it.
 
 2. **Preserve Verbatim Lists**
-   - Copy any explicit lists from PRD skill artifacts verbatim (personas, epics, release slices, mandatory items).
+   - Copy any explicit lists from PRD skill artifacts verbatim (personas, epics, release slices, mandatory items, and explicitly named sources/sites). Do not collapse explicit lists into generic categories.
    - Do not reorder or paraphrase explicit user-provided lists.
 
 3. **Define User Flows First**
@@ -60,7 +67,7 @@ Provide a concise summary:
 
 4. **Construct the Story Map**
    - Map flows into `activities → steps → stories`.
-   - If `candidate_user_stories` are already structured, preserve them verbatim; otherwise map from epics and journeys with minimal transformation.
+   - If `handoff_user_story_mapper.stories` are already structured, preserve them verbatim; otherwise map from epics and journeys with minimal transformation.
 
 5. **Maintain Stable IDs**
    - Keep any provided IDs unchanged.
@@ -82,6 +89,13 @@ Provide a concise summary:
 9. **Emit Outputs**
    - Emit the machine-consumable artifact first, then the human-readable summary.
    - Ensure deterministic ordering of keys and stable IDs.
+
+10. **Propagate Updates Back to PRD Artifacts**
+    - If story mapping uncovers new requirements, acceptance criteria, or open questions, update `docs/prd.packet.json`:
+      - Add new questions to `tbd.questions` or `normalized_prd.open_questions`.
+      - Update `handoff_user_story_mapper` with the finalized story IDs and linkage.
+      - Keep all existing IDs stable and avoid rewriting user-provided wording.
+    - If updates materially change PRD content, note the change in `meta.change_summary`.
 
 ## Failure Modes & Required Questions
 For any failure mode, **ask the user targeted questions** that identify the missing or conflicting information and the impacted stories/epics.
