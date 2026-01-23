@@ -1,11 +1,8 @@
 ---
 name: prd-skill
-description: Normalize and refine an existing PRD (PDF/GDoc/MD text) into a structured PRD packet and a clean handoff for the User Story Mapper.
+description: Normalize and refine an existing PRD (PDF/GDoc/MD text) into a structured PRD packet and a clean handoff for the User Story Mapper, especially when preparing downstream story mapping and architecture work.
 metadata:
-  version: "1.0"
-  category: "product"
-  inputs: ["raw_prd_text", "optional_context"]
-  outputs: ["normalized_prd_markdown", "prd_packet_json"]
+  short-description: Refine PRDs into normalized artifacts and story handoffs.
 ---
 
 # PRD Skill (PRD Refiner + Handoff Generator)
@@ -41,6 +38,8 @@ Questions must be:
 - specific (not generic “tell me more”),
 - grouped (max ~10 per iteration),
 - prioritized by impact on downstream mapping and implementation.
+
+When asking, provide 2–3 proposed options with **pros/cons** for each and ask the user to pick or refine an option.
 
 The skill must still produce usable outputs in the same run by marking TBDs, **but it should explicitly ask the questions** instead of silently guessing.
 
@@ -156,6 +155,7 @@ When writing files to a repo, ensure they live under a `docs/` directory. If it 
    - Keep the handoff usable even if incomplete.
 
 ## Failure Modes & What To Do
+When proposing resolutions or assumptions, include 2–3 options with pros/cons and ask the user to choose.
 - **PRD is too high-level:** produce a normalized PRD + a list of “precision questions” needed to make it implementable.
 - **PRD conflicts with itself:** list conflicts explicitly and propose 1–2 plausible resolutions as options.
 - **Missing user personas:** infer minimal actors (e.g., Admin/User/Guest) and mark as assumptions.
