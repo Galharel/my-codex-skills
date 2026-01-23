@@ -58,6 +58,11 @@ Derived from `architecture.packet.json` (do not diverge):
 - `docs/architecture.handoff.data.md`
 - `docs/architecture.handoff.agentic.md` (only if agentic_architecture.enabled = true)
 
+### Upstream Sync Expectations (Required)
+The Architecture skill must keep upstream artifacts aligned by:
+- consuming `docs/prd.packet.json` and `docs/story-map.json` as authoritative for IDs and traceability,
+- pushing gaps or conflicts back into those artifacts when they affect flow integrity or requirement completeness.
+
 ## Procedure
 1. **Ingest artifacts** from `docs/`. If missing, ask targeted questions and proceed with TBD placeholders.
 2. **Preserve explicit lists verbatim** (personas, epics, release slices, named constraints).
@@ -78,6 +83,12 @@ Update upstream artifacts **only when required** to preserve traceability:
 - If architecture introduces new story mapping needs (e.g., missing flow step), update:
   - `docs/story-map.json` → `ambiguities[]` or `unmapped_inputs[]`
 Keep IDs stable and avoid paraphrasing user-provided lists.
+
+## End-to-End Flow Compatibility
+This skill must remain compatible with the preceding PRD and User Story skills by ensuring:
+- `source_artifacts` in `docs/architecture.packet.json` references the exact PRD and story map files consumed,
+- traceability links stay intact (story IDs ↔ FR/NFR IDs ↔ components/interfaces),
+- any corrections are fed back upstream (PRD packet or story map) so the flow can be rerun deterministically.
 
 ## Backend ↔ Agentic Handoff Sync
 Ensure backend and agentic handoffs stay aligned:

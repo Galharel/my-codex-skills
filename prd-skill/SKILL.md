@@ -15,6 +15,7 @@ Given an existing PRD (often messy, incomplete, or unstructured), produce:
 
 ## Position in the Flow (Iterations)
 This skill is the **entry-point** for the workflow: it produces the canonical PRD artifacts that downstream skills consume.
+It must align with the User Story and Architecture skills by emitting a stable PRD packet and a handoff contract that map cleanly into story mapping and architecture briefs.
 
 However, it may be invoked multiple times across iterations (either by the user or as part of an iterative refinement loop). Each run must:
 - read any existing PRD artifacts (prior normalized PRD, prior PRD packet JSON, prior Q&A),
@@ -101,6 +102,11 @@ Provide a contract that downstream User Story Mapper should consume:
 - `open_questions`: unanswered items that could block story mapping
 This contract must be embedded at `prd_packet_json.handoff_user_story_mapper` and may optionally be summarized in the Markdown output.
 
+### D) Flow Alignment Notes (Required)
+Include a short note in the normalized PRD (User Story Mapper Handoff section) that:
+- the User Story skill **must** consume `docs/prd.packet.json` and the embedded `handoff_user_story_mapper`,
+- the Architecture skill **must** consume `docs/prd.normalized.md`, `docs/prd.packet.json`, and `docs/story-map.json` once generated.
+
 ### Artifact Locations & Naming
 When writing files to a repo, ensure they live under a `docs/` directory. If it does not exist, create it.
 - `docs/prd.normalized.md` (Normalized PRD Markdown)
@@ -153,6 +159,12 @@ When writing files to a repo, ensure they live under a `docs/` directory. If it 
      - `open_questions`
    - Prefer asking **targeted** questions (not generic ones).
    - Keep the handoff usable even if incomplete.
+
+7. **Sync With Downstream Feedback**
+   - If the User Story or Architecture skills identify missing requirements, acceptance criteria, or conflicts, re-run this skill to:
+     - update `docs/prd.packet.json` (`tbd.questions`, `tbd.missing_fields`, `tbd.assumptions_made`),
+     - update `docs/prd.normalized.md` to reflect resolved clarifications,
+     - preserve stable FR/NFR IDs and any explicit user-provided lists verbatim.
 
 ## Failure Modes & What To Do
 When proposing resolutions or assumptions, include 2–3 options with pros/cons and ask the user to choose.

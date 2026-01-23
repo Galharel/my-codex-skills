@@ -11,7 +11,7 @@ metadata:
 Translate PRD skill artifacts into **flow-oriented user steps** and a **stable, machine-consumable story map** plus a human-readable summary. Preserve explicit user-provided lists verbatim, keep IDs stable, and surface ambiguities with targeted questions instead of guessing. When uncertain, propose options with pros/cons so the user can decide quickly. Enable downstream planning without making architecture or implementation decisions.
 
 ## Position in the Flow (Boundary)
-Stay between PRD refinement and architecture/technical design. Do **not** decide components, services, APIs, data models, or infrastructure. Output structured flows, stories, and traceability that downstream architecture skills can consume.
+Stay between PRD refinement and architecture/technical design. Do **not** decide components, services, APIs, data models, or infrastructure. Output structured flows, stories, and traceability that downstream architecture skills can consume. The architecture skill should be able to ingest the story map artifacts directly without additional transformation.
 
 ## Inputs
 Expect **every artifact produced by the PRD skill** and use them as authoritative sources. Explain each input and how it is used:
@@ -29,6 +29,12 @@ When writing files to a repo, ensure they live under a `docs/` directory. If it 
 - `docs/story-map.json` (Story Map JSON)
 - `docs/story-map.summary.md` (Story Map Summary)
 - Update `docs/prd.packet.json` when story mapping changes require PRD updates.
+
+### Downstream Handoff to Architecture (Required)
+Ensure `docs/story-map.json` and `docs/story-map.summary.md` are complete and self-consistent so the Architecture skill can:
+- map epics, flows, and stories to components,
+- trace stories back to FR/NFR IDs from `docs/prd.packet.json`,
+- identify open questions and TBDs without re-reading the raw PRD.
 
 ## Outputs
 ### A) Story Map JSON (machine-consumable)
@@ -99,6 +105,12 @@ Provide a concise summary:
       - Update `handoff_user_story_mapper` with the finalized story IDs and linkage.
       - Keep all existing IDs stable and avoid rewriting user-provided wording.
     - If updates materially change PRD content, note the change in `meta.change_summary`.
+
+11. **Sync With Architecture Feedback**
+    - If Architecture later reveals missing flows, unclear boundaries, or traceability gaps, update:
+      - `docs/story-map.json` (`ambiguities[]`, `unmapped_inputs[]`, or missing flow steps),
+      - `docs/prd.packet.json` (`tbd.questions` or acceptance criteria gaps),
+      - while preserving stable IDs and verbatim lists.
 
 ## Failure Modes & Required Questions
 For any failure mode, **ask the user targeted questions** that identify the missing or conflicting information and the impacted stories/epics.
