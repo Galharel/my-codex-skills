@@ -13,7 +13,7 @@ Designers
 Agentic
 - Orchestration design skill (what agents, sequencing and parallelism, retries and escalation) → Technical Specification Writer 
 - Agentic memory, context and RAG Pipeline Architect → Technical Specification Writer 
-- Agents Tool Definition Generator (MCP Creator) → Technical Specification Writer 
+- Agents Tool Definition Generator + MCP Creator (if needed) → Technical Specification Writer 
 - Context & Prompt Engineering design Skill → Technical Specification Writer 
 - Security designer → Technical Specification Writer
 - Design synchronizer (Can invoke designers again if finds conflicts)
