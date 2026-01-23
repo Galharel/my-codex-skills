@@ -1,12 +1,14 @@
 ---
 name: user-story-skill
 description: Map PRD skill artifacts into user flows and a stable story map with traceability plus a human-readable summary. Use when converting PRD outputs into flow-oriented steps, user stories, release slices, and open questions while preserving IDs and explicit lists.
+metadata:
+  short-description: Turn PRD outputs into story maps and user flows.
 ---
 
 # User Story Skill
 
 ## Purpose
-Translate PRD skill artifacts into **flow-oriented user steps** and a **stable, machine-consumable story map** plus a human-readable summary. Preserve explicit user-provided lists verbatim, keep IDs stable, and surface ambiguities with targeted questions instead of guessing. Enable downstream planning without making architecture or implementation decisions.
+Translate PRD skill artifacts into **flow-oriented user steps** and a **stable, machine-consumable story map** plus a human-readable summary. Preserve explicit user-provided lists verbatim, keep IDs stable, and surface ambiguities with targeted questions instead of guessing. When uncertain, propose options with pros/cons so the user can decide quickly. Enable downstream planning without making architecture or implementation decisions.
 
 ## Position in the Flow (Boundary)
 Stay between PRD refinement and architecture/technical design. Do **not** decide components, services, APIs, data models, or infrastructure. Output structured flows, stories, and traceability that downstream architecture skills can consume.
@@ -20,6 +22,7 @@ Expect **every artifact produced by the PRD skill** and use them as authoritativ
 - `prior_story_map` (optional): prior story map artifact. Use it to keep story IDs stable across iterations.
 
 If any required artifact is missing or incomplete, **ask the user targeted questions immediately** and proceed with best-effort placeholders labeled as TBD (see Failure Modes).
+When asking questions, offer 2–3 concrete options with pros/cons and ask which option should be used.
 
 ### Artifact Locations & Naming
 When writing files to a repo, ensure they live under a `docs/` directory. If it does not exist, create it.
@@ -99,6 +102,7 @@ Provide a concise summary:
 
 ## Failure Modes & Required Questions
 For any failure mode, **ask the user targeted questions** that identify the missing or conflicting information and the impacted stories/epics.
+Include 2–3 options with pros/cons for each decision point to speed up user confirmation.
 
 - **Missing PRD artifacts:** Ask for the missing artifact(s) and proceed with placeholders marked TBD.
 - **Missing personas/epics/stories:** Ask for the missing list(s) explicitly rather than inferring without confirmation.

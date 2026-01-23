@@ -1,12 +1,14 @@
 ---
 name: architecture-skill
 description: Translate PRD + story map artifacts into a high-level system architecture brief, component boundaries, interfaces, data flows, and designer-ready handoffs (frontend, backend, data, agentic). Use when moving from PRD/story outputs to architecture planning without detailed implementation.
+metadata:
+  short-description: Convert PRD/story maps into architecture briefs and handoffs.
 ---
 
 # Architecture Skill
 
 ## Purpose
-Produce a high-level architecture package that bridges PRD/story artifacts to designer-ready handoffs. Preserve traceability to FR/NFR and story IDs, avoid implementation detail, and surface uncertainty with targeted questions instead of guessing.
+Produce a high-level architecture package that bridges PRD/story artifacts to designer-ready handoffs. Preserve traceability to FR/NFR and story IDs, avoid implementation detail, and surface uncertainty with targeted questions instead of guessing. When uncertainty requires a decision, propose options with pros/cons so the user can confirm quickly.
 
 ## Position in the Flow (Boundary)
 This skill sits **after** PRD and User Story skills and **before** designer-specific technical specs. Do not pick frameworks, SDKs, database engines, or UI/UX details unless explicitly specified in input artifacts or optional context.
@@ -20,6 +22,7 @@ Use artifacts from `docs/` as authoritative inputs:
 - `optional_context` (stack constraints, target platforms, existing systems)
 
 If any required artifact is missing, ask targeted questions immediately and proceed with placeholders labeled TBD.
+When asking, include 2–3 possible approaches with pros/cons and ask the user to choose or clarify.
 
 ## Outputs
 Always write under `docs/`:
@@ -89,3 +92,4 @@ Ensure backend and agentic handoffs stay aligned:
 - Conflicting IDs → preserve inputs and ask which ID is canonical.
 - Unclear NFR expectations → ask for measurable targets.
 - Unclear agentic scope → ask whether agents are in scope and their primary responsibilities.
+When any question has multiple plausible directions, propose 2–3 options with pros/cons to speed up user confirmation.
