@@ -6,16 +6,15 @@ High level design
 - Architecture Skill
 
 Designers
-- Frontend Logic & State designer → Technical Specification Writer 
-- Backend + API designer → Technical Specification Writer 
-- Database Schema Designer → Technical Specification Writer 
-
-Agentic
-- Orchestration design skill (what agents, sequencing and parallelism, retries and escalation) → Technical Specification Writer 
-- Agentic memory, context and RAG Pipeline Architect → Technical Specification Writer 
-- Agents Tool Definition Generator + MCP Creator (if needed) → Technical Specification Writer 
-- Context & Prompt Engineering design Skill → Technical Specification Writer 
-- Security designer → Technical Specification Writer
+- Frontend Logic & State designer 
+- Backend + API designer 
+- Database Schema Designer 
+- Agentic
+  - Orchestration design skill (what agents, sequencing and parallelism, retries and escalation) 
+  - Agentic memory, context and RAG Pipeline Architect 
+  - Agents Tool Definition Generator + MCP Creator (if needed) 
+  - Context & Prompt Engineering design Skill 
+- Security designer
 - Design synchronizer (Can invoke designers again if finds conflicts)
 
 Planning
