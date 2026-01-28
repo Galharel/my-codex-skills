@@ -28,8 +28,8 @@ However, it may be invoked multiple times across iterations (either by the user 
 - Refinement pass: raw PRD + previous PRD packet(s) exist.
 - Repair pass: downstream skill reports missing/conflicting info; PRD skill re-runs to patch the PRD packet and re-issue handoff.
 
-## Core Behavior: Ask Clarifying Questions When Uncertain
-This skill must actively identify uncertainty and ask the user targeted questions whenever:
+## Core Behavior: Proactive Clarification (Always Use)
+This skill must actively identify uncertainty and proactively ask the user targeted questions whenever:
 - a requirement cannot be made testable without guessing,
 - a policy/behavior choice exists (e.g., retries vs fail-fast, partial results),
 - the PRD contains ambiguity or conflicting statements,
@@ -40,7 +40,7 @@ Questions must be:
 - grouped (max ~10 per iteration),
 - prioritized by impact on downstream mapping and implementation.
 
-When asking, provide 2–3 proposed options with **pros/cons** for each and ask the user to pick or refine an option.
+When asking, provide up to 3 proposed options with **pros/cons** for each and ask the user to pick or refine an option.
 
 The skill must still produce usable outputs in the same run by marking TBDs, **but it should explicitly ask the questions** instead of silently guessing.
 
@@ -167,7 +167,7 @@ When writing files to a repo, ensure they live under a `docs/` directory. If it 
      - preserve stable FR/NFR IDs and any explicit user-provided lists verbatim.
 
 ## Failure Modes & What To Do
-When proposing resolutions or assumptions, include 2–3 options with pros/cons and ask the user to choose.
+When proposing resolutions or assumptions, include up to 3 options with pros/cons and ask the user to choose.
 - **PRD is too high-level:** produce a normalized PRD + a list of “precision questions” needed to make it implementable.
 - **PRD conflicts with itself:** list conflicts explicitly and propose 1–2 plausible resolutions as options.
 - **Missing user personas:** infer minimal actors (e.g., Admin/User/Guest) and mark as assumptions.

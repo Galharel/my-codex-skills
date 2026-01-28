@@ -28,14 +28,14 @@ If required inputs are missing, ask targeted questions and proceed with clearly 
 - **Tools/MCP**: tool contracts, capability definitions, MCP server outline when needed.
 - **Prompt strategy**: system prompts, role separation, guardrails.
 
-## Questions & Options (Required When Uncertain)
-Ask targeted questions with 2–3 options and pros/cons when agent scope or constraints are unclear.
+## Clarity-First Questions (Always Use)
+Be proactively inquisitive. Ask targeted questions any time a decision impacts scope, constraints, interfaces, or quality. Do not wait for confusion. Provide up to 3 concrete options with pros/cons so the user can choose. Keep asking until the plan is unambiguous and execution-ready.
 Example format:
 1) **Question**: (precise decision)
 2) **Options**:
    - Option A: pros/cons
    - Option B: pros/cons
-3) **Ask**: “Which option should I proceed with?”
+3) **Ask**: "Which option should I proceed with?"
 
 ## Sync Rules
 - Align with backend interfaces and data constraints.

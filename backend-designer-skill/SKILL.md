@@ -27,14 +27,14 @@ If required inputs are missing, ask targeted questions and proceed with clearly 
 - **Data access strategy**: integrate with chosen database (SQL vs NoSQL; Firestore vs Supabase where relevant).
 - **Error handling, retries, observability**: define expected behaviors.
 
-## Questions & Options (Required When Uncertain)
-Ask targeted questions with 2–3 options and pros/cons whenever a choice cannot be derived from inputs.
+## Relentless Clarification (Always Use)
+Proactively ask questions whenever a decision affects APIs, data access, auth, or reliability. Do not rely on implicit assumptions. Offer up to 3 options with pros/cons and ask the user to choose. Continue until the plan leaves no open decisions.
 Example format:
 1) **Question**: (precise decision)
 2) **Options**:
    - Option A: pros/cons
    - Option B: pros/cons
-3) **Ask**: “Which option should I proceed with?”
+3) **Ask**: "Which option should I proceed with?"
 
 ## Sync Rules
 - Backend defines the **canonical API contract** unless explicitly delegated.

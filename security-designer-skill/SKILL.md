@@ -26,14 +26,14 @@ If required inputs are missing, ask targeted questions and proceed with clearly 
 - **Data protection**: encryption at rest/in transit, key management.
 - **Operational controls**: audit logging, rate limits, abuse prevention, secrets handling.
 
-## Questions & Options (Required When Uncertain)
-Ask targeted questions with 2–3 options and pros/cons when security requirements are unclear.
+## Security Clarity Gate (Always Use)
+Ask probing questions whenever security requirements, compliance constraints, or threat surfaces could alter controls. Do not assume. Provide up to 3 options with pros/cons and ask the user to choose. Continue until the security plan is explicit and testable.
 Example format:
 1) **Question**: (precise decision)
 2) **Options**:
    - Option A: pros/cons
    - Option B: pros/cons
-3) **Ask**: “Which option should I proceed with?”
+3) **Ask**: "Which option should I proceed with?"
 
 ## Sync Rules
 - Ensure security controls map to backend and data designs.

@@ -6,7 +6,7 @@ description: Synchronize designer outputs (frontend, backend, data, agentic, sec
 # Design Synchronizer Skill
 
 ## Purpose
-Validate and synchronize all designer outputs, identify conflicts, and enforce a final zero-conflicts pass before design is declared ready for implementation.
+Validate and synchronize all designer outputs, identify conflicts, and enforce a final zero-conflicts pass before design is declared ready for implementation. Proactively ask clarifying questions whenever a resolution choice affects scope, interfaces, or risk; provide up to 3 options with pros/cons so the user can choose.
 
 ## Inputs (authoritative order)
 1. `docs/architecture.packet.json`
@@ -31,7 +31,7 @@ If any inputs are missing, ask targeted questions and identify which designer mu
 
 ## Conflict Handling
 - List each conflict with impacted artifacts and severity.
-- For each conflict, provide 2–3 resolution options with pros/cons.
+- For each conflict, provide up to 3 resolution options with pros/cons.
 - Identify which designer(s) must re-run to resolve the conflict.
 
 ## Exit Criteria

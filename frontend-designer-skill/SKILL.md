@@ -26,14 +26,14 @@ If required inputs are missing, ask targeted questions and proceed with clearly 
 - **API consumption**: REST/GraphQL/RPC strategy aligned with backend.
 - **UI/UX direction**: system-level guidance and integration of user-provided design references.
 
-## Questions & Options (Required When Uncertain)
-When uncertain, ask questions with 2–3 options, each with pros/cons, and ask the user to choose.
+## Proactive Decision Checkpoints (Always Use)
+Ask clarifying questions early and often whenever a choice affects architecture, UX direction, API usage, or delivery risk. Do not wait for ambiguity. Present up to 3 options with pros/cons and ask the user to pick. Keep iterating until the plan is fully clear.
 Example format:
 1) **Question**: (precise decision)
 2) **Options**:
    - Option A: pros/cons
    - Option B: pros/cons
-3) **Ask**: “Which option should I proceed with?”
+3) **Ask**: "Which option should I proceed with?"
 
 ## Sync Rules
 - Treat backend API contract as canonical; if missing, propose and flag as TBD.

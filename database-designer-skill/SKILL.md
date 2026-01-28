@@ -26,14 +26,14 @@ If required inputs are missing, ask targeted questions and proceed with clearly 
 - **Schema design**: tables/collections, indexes, constraints, migrations.
 - **Data lifecycle**: retention, archival, deletion, backups.
 
-## Questions & Options (Required When Uncertain)
-Ask targeted questions with 2–3 options and pros/cons when requirements or access patterns are unclear.
+## No-Guessing Policy (Always Use)
+Ask clarifying questions whenever requirements, access patterns, or constraints could change the schema or platform choice. Do not guess. Provide up to 3 options with pros/cons and ask the user to choose. Repeat until the data plan is fully specified.
 Example format:
 1) **Question**: (precise decision)
 2) **Options**:
    - Option A: pros/cons
    - Option B: pros/cons
-3) **Ask**: “Which option should I proceed with?”
+3) **Ask**: "Which option should I proceed with?"
 
 ## Sync Rules
 - Align data model with backend API contracts and business logic boundaries.
